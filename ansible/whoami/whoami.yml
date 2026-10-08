@@ -1,0 +1,21 @@
+---
+- name: Execute system verification commands
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Run whoami command
+      ansible.builtin.shell: whoami
+      register: whoami_result
+
+    - name: Run ip a command
+      ansible.builtin.shell: ip a
+      register: ip_result
+
+    - name: Display whoami output
+      ansible.builtin.debug:
+        msg: "Current user: {{ whoami_result.stdout }}"
+
+    - name: Display ip a output
+      ansible.builtin.debug:
+        msg: "{{ ip_result.stdout_lines }}"
